@@ -400,7 +400,7 @@ CONFIG_DEFAULT_logd=y
 CONFIG_DEFAULT_mtd=y
 CONFIG_DEFAULT_netifd=y
 CONFIG_DEFAULT_odhcp6c=y
-CONFIG_DEFAULT_odhcpd=y
+CONFIG_DEFAULT_odhcpd-ipv6only=y
 CONFIG_DEFAULT_opkg=y
 CONFIG_DEFAULT_ppp=y
 CONFIG_DEFAULT_ppp-mod-pppoe=y
@@ -2743,6 +2743,7 @@ CONFIG_PACKAGE_brcmfmac-firmware-4366b1-pcie=m
 CONFIG_PACKAGE_brcmfmac-firmware-usb=m
 CONFIG_PACKAGE_brcmsmac-firmware=m
 CONFIG_PACKAGE_carl9170-firmware=m
+CONFIG_PACKAGE_e100-firmware=m
 CONFIG_PACKAGE_edgeport-firmware=m
 CONFIG_PACKAGE_ibt-firmware=m
 CONFIG_PACKAGE_iwl3945-firmware=m
@@ -2958,6 +2959,7 @@ CONFIG_PACKAGE_kmod-crypto-cmac=y
 CONFIG_PACKAGE_kmod-crypto-crc32=m
 CONFIG_PACKAGE_kmod-crypto-crc32c=m
 CONFIG_PACKAGE_kmod-crypto-ctr=m
+CONFIG_PACKAGE_kmod-crypto-cts=m
 CONFIG_PACKAGE_kmod-crypto-deflate=m
 CONFIG_PACKAGE_kmod-crypto-des=m
 CONFIG_PACKAGE_kmod-crypto-ecb=y
@@ -3015,6 +3017,9 @@ CONFIG_PACKAGE_kmod-fs-minix=m
 CONFIG_PACKAGE_kmod-fs-msdos=y
 CONFIG_PACKAGE_kmod-fs-nfs=m
 CONFIG_PACKAGE_kmod-fs-nfs-common=m
+CONFIG_PACKAGE_kmod-fs-nfs-common-rpcsec=m
+CONFIG_PACKAGE_kmod-fs-nfs-v3=m
+CONFIG_PACKAGE_kmod-fs-nfs-v4=m
 CONFIG_PACKAGE_kmod-fs-nfsd=m
 CONFIG_PACKAGE_kmod-fs-ntfs=m
 CONFIG_PACKAGE_kmod-fs-reiserfs=m
@@ -3387,6 +3392,7 @@ CONFIG_PACKAGE_kmod-gpio-nxp-74hc164=m
 CONFIG_PACKAGE_kmod-gpio-pca953x=m
 CONFIG_PACKAGE_kmod-gpio-pcf857x=m
 CONFIG_PACKAGE_kmod-ikconfig=m
+CONFIG_PACKAGE_kmod-it87-wdt=m
 CONFIG_PACKAGE_kmod-itco-wdt=m
 CONFIG_PACKAGE_kmod-lp=m
 CONFIG_PACKAGE_kmod-mmc=m
@@ -4842,153 +4848,6 @@ CONFIG_PACKAGE_libfdisk=m
 CONFIG_PACKAGE_libfdt=m
 CONFIG_PACKAGE_libffi=y
 CONFIG_PACKAGE_libffmpeg-audio-dec=m
-CONFIG_PACKAGE_libffmpeg-custom=m
-
-#
-# Build Licensing
-#
-CONFIG_FFMPEG_CUSTOM_GPL=y
-# CONFIG_FFMPEG_CUSTOM_GPLV3 is not set
-# CONFIG_FFMPEG_CUSTOM_NONFREE is not set
-CONFIG_FFMPEG_CUSTOM_PATENTED=y
-
-#
-# Build Properties
-#
-# CONFIG_FFMPEG_CUSTOM_LARGE is not set
-
-#
-# Profiles
-#
-# CONFIG_FFMPEG_CUSTOM_FFSERVER_SUPPORT is not set
-# CONFIG_FFMPEG_CUSTOM_MINIDLNA_SUPPORT is not set
-# CONFIG_FFMPEG_CUSTOM_AUDIO_DEC_SUPPORT is not set
-
-#
-# External Libraries
-#
-# CONFIG_FFMPEG_CUSTOM_SELECT_libmp3lame is not set
-# CONFIG_FFMPEG_CUSTOM_SELECT_libopus is not set
-# CONFIG_FFMPEG_CUSTOM_SELECT_libshine is not set
-# CONFIG_FFMPEG_CUSTOM_SELECT_libx264 is not set
-
-#
-# Encoders
-#
-# CONFIG_FFMPEG_CUSTOM_ENCODER_ac3 is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_jpegls is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_mpeg1video is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_mpeg2video is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_mpeg4 is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_pcm_s16be is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_pcm_s16le is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_png is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_vorbis is not set
-# CONFIG_FFMPEG_CUSTOM_ENCODER_zlib is not set
-
-#
-# Decoders
-#
-# CONFIG_FFMPEG_CUSTOM_DECODER_aac is not set
-# CONFIG_FFMPEG_CUSTOM_SELECT_adpcm is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_ac3 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_alac is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_amrnb is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_amrwb is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_ape is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_atrac3 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_flac is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_gif is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_h264 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_hevc is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_jpegls is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mp2 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mp3 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mpegvideo is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mpeg1video is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mpeg2video is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mpeg4 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mpc7 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_mpc8 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_opus is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_pcm_s16be is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_pcm_s16le is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_png is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_vc1 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_vorbis is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_wavpack is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_wmav1 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_wmav2 is not set
-# CONFIG_FFMPEG_CUSTOM_DECODER_zlib is not set
-
-#
-# Muxers
-#
-# CONFIG_FFMPEG_CUSTOM_MUXER_ac3 is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_ffm is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_h264 is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_hevc is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_mp3 is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_mp4 is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_mpeg1video is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_mpeg2video is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_mpegts is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_ogg is not set
-# CONFIG_FFMPEG_CUSTOM_MUXER_rtp is not set
-
-#
-# Demuxers
-#
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_aac is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_avi is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_ac3 is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_amr is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_ape is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_flac is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_ffm is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_h264 is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_hevc is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_matroska is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mov is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mp3 is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mpegvideo is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mpegps is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mpegts is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mpc is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_mpc8 is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_ogg is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_rm is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_rtsp is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_sdp is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_rtp is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_vc1 is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_wav is not set
-# CONFIG_FFMPEG_CUSTOM_DEMUXER_wv is not set
-
-#
-# Parsers
-#
-# CONFIG_FFMPEG_CUSTOM_PARSER_aac is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_ac3 is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_flac is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_h264 is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_hevc is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_mpegaudio is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_mpegvideo is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_mpeg4video is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_opus is not set
-# CONFIG_FFMPEG_CUSTOM_PARSER_vc1 is not set
-
-#
-# Protocols
-#
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_file is not set
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_http is not set
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_icecast is not set
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_pipe is not set
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_rtp is not set
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_tcp is not set
-# CONFIG_FFMPEG_CUSTOM_PROTOCOL_udp is not set
 CONFIG_PACKAGE_libffmpeg-full=m
 CONFIG_PACKAGE_libffmpeg-mini=m
 CONFIG_PACKAGE_libflac=m
@@ -6275,6 +6134,9 @@ CONFIG_PACKAGE_dovecot=m
 # CONFIG_DOVECOT_MYSQL is not set
 # CONFIG_DOVECOT_PGSQL is not set
 # CONFIG_DOVECOT_SQLITE is not set
+# CONFIG_DOVECOT_ICU is not set
+CONFIG_PACKAGE_dovecot-pigeonhole=m
+CONFIG_PACKAGE_dovecot-utils=m
 CONFIG_PACKAGE_emailrelay=m
 # CONFIG_EMAILRELAY_SUPPORT_VERBOSE_DBG is not set
 CONFIG_EMAILRELAY_SSL=y
@@ -6297,7 +6159,6 @@ CONFIG_PACKAGE_msmtpq-ng-mta=m
 CONFIG_PACKAGE_msmtpq-ng-mta-smtpd=m
 CONFIG_PACKAGE_mutt=m
 CONFIG_PACKAGE_nail=m
-CONFIG_PACKAGE_pigeonhole=m
 CONFIG_PACKAGE_postfix=m
 
 #
@@ -7279,33 +7140,68 @@ CONFIG_PACKAGE_asterisk13=m
 # Advanced configuration
 #
 # CONFIG_ASTERISK13_LOW_MEMORY is not set
+CONFIG_PACKAGE_asterisk13-app-adsiprog=m
+CONFIG_PACKAGE_asterisk13-app-agent-pool=m
 CONFIG_PACKAGE_asterisk13-app-alarmreceiver=m
+CONFIG_PACKAGE_asterisk13-app-amd=m
 CONFIG_PACKAGE_asterisk13-app-authenticate=m
+CONFIG_PACKAGE_asterisk13-app-bridgewait=m
+CONFIG_PACKAGE_asterisk13-app-celgenuserevent=m
 CONFIG_PACKAGE_asterisk13-app-chanisavail=m
+CONFIG_PACKAGE_asterisk13-app-channelredirect=m
 CONFIG_PACKAGE_asterisk13-app-chanspy=m
 CONFIG_PACKAGE_asterisk13-app-confbridge=m
+CONFIG_PACKAGE_asterisk13-app-controlplayback=m
 CONFIG_PACKAGE_asterisk13-app-dahdiras=m
+CONFIG_PACKAGE_asterisk13-app-dictate=m
 CONFIG_PACKAGE_asterisk13-app-directed_pickup=m
+CONFIG_PACKAGE_asterisk13-app-directory=m
 CONFIG_PACKAGE_asterisk13-app-disa=m
+CONFIG_PACKAGE_asterisk13-app-dumpchan=m
 CONFIG_PACKAGE_asterisk13-app-exec=m
+CONFIG_PACKAGE_asterisk13-app-externalivr=m
+CONFIG_PACKAGE_asterisk13-app-festival=m
+CONFIG_PACKAGE_asterisk13-app-flash=m
+CONFIG_PACKAGE_asterisk13-app-followme=m
+CONFIG_PACKAGE_asterisk13-app-getcpeid=m
+CONFIG_PACKAGE_asterisk13-app-ices=m
+CONFIG_PACKAGE_asterisk13-app-image=m
+CONFIG_PACKAGE_asterisk13-app-ivrdemo=m
+CONFIG_PACKAGE_asterisk13-app-milliwatt=m
 CONFIG_PACKAGE_asterisk13-app-minivm=m
 CONFIG_PACKAGE_asterisk13-app-mixmonitor=m
+CONFIG_PACKAGE_asterisk13-app-morsecode=m
+CONFIG_PACKAGE_asterisk13-app-mp3=m
 CONFIG_PACKAGE_asterisk13-app-originate=m
+CONFIG_PACKAGE_asterisk13-app-page=m
 CONFIG_PACKAGE_asterisk13-app-playtones=m
+CONFIG_PACKAGE_asterisk13-app-privacy=m
 CONFIG_PACKAGE_asterisk13-app-queue=m
 CONFIG_PACKAGE_asterisk13-app-read=m
 CONFIG_PACKAGE_asterisk13-app-readexten=m
 CONFIG_PACKAGE_asterisk13-app-record=m
+CONFIG_PACKAGE_asterisk13-app-saycounted=m
 CONFIG_PACKAGE_asterisk13-app-sayunixtime=m
 CONFIG_PACKAGE_asterisk13-app-senddtmf=m
+CONFIG_PACKAGE_asterisk13-app-sendtext=m
+CONFIG_PACKAGE_asterisk13-app-skel=m
 CONFIG_PACKAGE_asterisk13-app-sms=m
+CONFIG_PACKAGE_asterisk13-app-softhangup=m
 CONFIG_PACKAGE_asterisk13-app-speech=m
 CONFIG_PACKAGE_asterisk13-app-stack=m
+CONFIG_PACKAGE_asterisk13-app-stasis=m
 CONFIG_PACKAGE_asterisk13-app-system=m
 CONFIG_PACKAGE_asterisk13-app-talkdetect=m
+CONFIG_PACKAGE_asterisk13-app-test=m
+CONFIG_PACKAGE_asterisk13-app-transfer=m
+CONFIG_PACKAGE_asterisk13-app-url=m
+CONFIG_PACKAGE_asterisk13-app-userevent=m
 CONFIG_PACKAGE_asterisk13-app-verbose=m
+CONFIG_PACKAGE_asterisk13-app-waitforring=m
+CONFIG_PACKAGE_asterisk13-app-waitforsilence=m
 CONFIG_PACKAGE_asterisk13-app-waituntil=m
 CONFIG_PACKAGE_asterisk13-app-while=m
+CONFIG_PACKAGE_asterisk13-app-zapateller=m
 CONFIG_PACKAGE_asterisk13-bridge-builtin-features=m
 CONFIG_PACKAGE_asterisk13-bridge-builtin-interval-features=m
 CONFIG_PACKAGE_asterisk13-bridge-holding=m
@@ -7315,12 +7211,22 @@ CONFIG_PACKAGE_asterisk13-bridge-softmix=m
 CONFIG_PACKAGE_asterisk13-cdr=m
 CONFIG_PACKAGE_asterisk13-cdr-csv=m
 CONFIG_PACKAGE_asterisk13-cdr-sqlite3=m
+CONFIG_PACKAGE_asterisk13-cel-custom=m
+CONFIG_PACKAGE_asterisk13-cel-manager=m
+CONFIG_PACKAGE_asterisk13-cel-sqlite3-custom=m
 CONFIG_PACKAGE_asterisk13-chan-alsa=m
+CONFIG_PACKAGE_asterisk13-chan-bridge-media=m
+CONFIG_PACKAGE_asterisk13-chan-console=m
 CONFIG_PACKAGE_asterisk13-chan-dahdi=m
 CONFIG_PACKAGE_asterisk13-chan-dongle=m
 CONFIG_PACKAGE_asterisk13-chan-iax2=m
+CONFIG_PACKAGE_asterisk13-chan-mgcp=m
+CONFIG_PACKAGE_asterisk13-chan-mobile=m
 CONFIG_PACKAGE_asterisk13-chan-motif=m
+CONFIG_PACKAGE_asterisk13-chan-ooh323=m
 CONFIG_PACKAGE_asterisk13-chan-oss=m
+CONFIG_PACKAGE_asterisk13-chan-phone=m
+CONFIG_PACKAGE_asterisk13-chan-rtp=m
 CONFIG_PACKAGE_asterisk13-chan-sip=m
 CONFIG_PACKAGE_asterisk13-chan-skinny=m
 CONFIG_PACKAGE_asterisk13-chan-unistim=m
@@ -7337,41 +7243,68 @@ CONFIG_PACKAGE_asterisk13-codec-lpc10=m
 CONFIG_PACKAGE_asterisk13-codec-resample=m
 CONFIG_PACKAGE_asterisk13-codec-ulaw=m
 CONFIG_PACKAGE_asterisk13-curl=m
+CONFIG_PACKAGE_asterisk13-format-g719=m
+CONFIG_PACKAGE_asterisk13-format-g723=m
 CONFIG_PACKAGE_asterisk13-format-g726=m
 CONFIG_PACKAGE_asterisk13-format-g729=m
 CONFIG_PACKAGE_asterisk13-format-gsm=m
 CONFIG_PACKAGE_asterisk13-format-h263=m
 CONFIG_PACKAGE_asterisk13-format-h264=m
 CONFIG_PACKAGE_asterisk13-format-ilbc=m
+CONFIG_PACKAGE_asterisk13-format-jpeg=m
+CONFIG_PACKAGE_asterisk13-format-ogg-vorbis=m
 CONFIG_PACKAGE_asterisk13-format-pcm=m
+CONFIG_PACKAGE_asterisk13-format-siren14=m
+CONFIG_PACKAGE_asterisk13-format-siren7=m
 CONFIG_PACKAGE_asterisk13-format-sln=m
 CONFIG_PACKAGE_asterisk13-format-vox=m
 CONFIG_PACKAGE_asterisk13-format-wav=m
 CONFIG_PACKAGE_asterisk13-format-wav-gsm=m
+CONFIG_PACKAGE_asterisk13-func-aes=m
 CONFIG_PACKAGE_asterisk13-func-base64=m
 CONFIG_PACKAGE_asterisk13-func-blacklist=m
+CONFIG_PACKAGE_asterisk13-func-callcompletion=m
 CONFIG_PACKAGE_asterisk13-func-channel=m
+CONFIG_PACKAGE_asterisk13-func-config=m
 CONFIG_PACKAGE_asterisk13-func-cut=m
 CONFIG_PACKAGE_asterisk13-func-db=m
 CONFIG_PACKAGE_asterisk13-func-devstate=m
+CONFIG_PACKAGE_asterisk13-func-dialgroup=m
+CONFIG_PACKAGE_asterisk13-func-dialplan=m
 CONFIG_PACKAGE_asterisk13-func-enum=m
 CONFIG_PACKAGE_asterisk13-func-env=m
 CONFIG_PACKAGE_asterisk13-func-extstate=m
+CONFIG_PACKAGE_asterisk13-func-frame-trace=m
 CONFIG_PACKAGE_asterisk13-func-global=m
 CONFIG_PACKAGE_asterisk13-func-groupcount=m
+CONFIG_PACKAGE_asterisk13-func-hangupcause=m
+CONFIG_PACKAGE_asterisk13-func-holdintercept=m
 CONFIG_PACKAGE_asterisk13-func-iconv=m
+CONFIG_PACKAGE_asterisk13-func-jitterbuffer=m
+CONFIG_PACKAGE_asterisk13-func-lock=m
 CONFIG_PACKAGE_asterisk13-func-math=m
+CONFIG_PACKAGE_asterisk13-func-md5=m
 CONFIG_PACKAGE_asterisk13-func-module=m
 CONFIG_PACKAGE_asterisk13-func-periodic-hook=m
+CONFIG_PACKAGE_asterisk13-func-pitchshift=m
 CONFIG_PACKAGE_asterisk13-func-presencestate=m
 CONFIG_PACKAGE_asterisk13-func-rand=m
 CONFIG_PACKAGE_asterisk13-func-realtime=m
+CONFIG_PACKAGE_asterisk13-func-sha1=m
 CONFIG_PACKAGE_asterisk13-func-shell=m
+CONFIG_PACKAGE_asterisk13-func-sorcery=m
+CONFIG_PACKAGE_asterisk13-func-sprintf=m
+CONFIG_PACKAGE_asterisk13-func-srv=m
+CONFIG_PACKAGE_asterisk13-func-sysinfo=m
+CONFIG_PACKAGE_asterisk13-func-talkdetect=m
 CONFIG_PACKAGE_asterisk13-func-uri=m
+CONFIG_PACKAGE_asterisk13-func-version=m
 CONFIG_PACKAGE_asterisk13-func-vmcount=m
+CONFIG_PACKAGE_asterisk13-func-volume=m
 CONFIG_PACKAGE_asterisk13-odbc=m
 CONFIG_PACKAGE_asterisk13-pbx-ael=m
 CONFIG_PACKAGE_asterisk13-pbx-dundi=m
+CONFIG_PACKAGE_asterisk13-pbx-loopback=m
 CONFIG_PACKAGE_asterisk13-pbx-lua=m
 CONFIG_PACKAGE_asterisk13-pbx-realtime=m
 CONFIG_PACKAGE_asterisk13-pbx-spool=m
@@ -7380,37 +7313,95 @@ CONFIG_PACKAGE_asterisk13-pjsip=m
 CONFIG_PACKAGE_asterisk13-res-adsi=m
 CONFIG_PACKAGE_asterisk13-res-ael-share=m
 CONFIG_PACKAGE_asterisk13-res-agi=m
+CONFIG_PACKAGE_asterisk13-res-ari=m
+CONFIG_PACKAGE_asterisk13-res-ari-applications=m
+CONFIG_PACKAGE_asterisk13-res-ari-asterisk=m
+CONFIG_PACKAGE_asterisk13-res-ari-bridges=m
+CONFIG_PACKAGE_asterisk13-res-ari-channels=m
+CONFIG_PACKAGE_asterisk13-res-ari-device-states=m
+CONFIG_PACKAGE_asterisk13-res-ari-endpoints=m
+CONFIG_PACKAGE_asterisk13-res-ari-events=m
+CONFIG_PACKAGE_asterisk13-res-ari-mailboxes=m
+CONFIG_PACKAGE_asterisk13-res-ari-model=m
+CONFIG_PACKAGE_asterisk13-res-ari-playbacks=m
+CONFIG_PACKAGE_asterisk13-res-ari-recordings=m
+CONFIG_PACKAGE_asterisk13-res-ari-sounds=m
 CONFIG_PACKAGE_asterisk13-res-calendar=m
 CONFIG_PACKAGE_asterisk13-res-calendar-caldav=m
 CONFIG_PACKAGE_asterisk13-res-calendar-ews=m
 CONFIG_PACKAGE_asterisk13-res-calendar-exchange=m
 CONFIG_PACKAGE_asterisk13-res-calendar-icalendar=m
+CONFIG_PACKAGE_asterisk13-res-chan-stats=m
+CONFIG_PACKAGE_asterisk13-res-clialiases=m
 CONFIG_PACKAGE_asterisk13-res-clioriginate=m
+CONFIG_PACKAGE_asterisk13-res-config-ldap=m
+CONFIG_PACKAGE_asterisk13-res-config-mysql=m
+CONFIG_PACKAGE_asterisk13-res-config-sqlite3=m
+CONFIG_PACKAGE_asterisk13-res-convert=m
+CONFIG_PACKAGE_asterisk13-res-endpoint-stats=m
 CONFIG_PACKAGE_asterisk13-res-fax=m
 CONFIG_PACKAGE_asterisk13-res-fax-spandsp=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-celt=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-g729=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-h263=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-h264=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-opus=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-silk=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-siren14=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-siren7=m
+CONFIG_PACKAGE_asterisk13-res-format-attr-vp8=m
 CONFIG_PACKAGE_asterisk13-res-hep=m
 CONFIG_PACKAGE_asterisk13-res-hep-pjsip=m
 CONFIG_PACKAGE_asterisk13-res-hep-rtcp=m
 CONFIG_PACKAGE_asterisk13-res-http-websocket=m
+CONFIG_PACKAGE_asterisk13-res-limit=m
+CONFIG_PACKAGE_asterisk13-res-manager-devicestate=m
+CONFIG_PACKAGE_asterisk13-res-manager-presencestate=m
 CONFIG_PACKAGE_asterisk13-res-monitor=m
 CONFIG_PACKAGE_asterisk13-res-musiconhold=m
+CONFIG_PACKAGE_asterisk13-res-mutestream=m
+CONFIG_PACKAGE_asterisk13-res-mwi-external=m
+CONFIG_PACKAGE_asterisk13-res-mwi-external-ami=m
 CONFIG_PACKAGE_asterisk13-res-parking=m
 CONFIG_PACKAGE_asterisk13-res-phoneprov=m
 CONFIG_PACKAGE_asterisk13-res-pjproject=m
 CONFIG_PACKAGE_asterisk13-res-pjsip-phoneprov=m
+CONFIG_PACKAGE_asterisk13-res-pktccops=m
 CONFIG_PACKAGE_asterisk13-res-realtime=m
 CONFIG_PACKAGE_asterisk13-res-rtp-asterisk=m
 CONFIG_PACKAGE_asterisk13-res-rtp-multicast=m
+CONFIG_PACKAGE_asterisk13-res-security-log=m
 CONFIG_PACKAGE_asterisk13-res-smdi=m
+CONFIG_PACKAGE_asterisk13-res-snmp=m
 CONFIG_PACKAGE_asterisk13-res-sorcery=m
+CONFIG_PACKAGE_asterisk13-res-sorcery-memory-cache=m
 CONFIG_PACKAGE_asterisk13-res-speech=m
 CONFIG_PACKAGE_asterisk13-res-srtp=m
+CONFIG_PACKAGE_asterisk13-res-stasis=m
+CONFIG_PACKAGE_asterisk13-res-stasis-answer=m
+CONFIG_PACKAGE_asterisk13-res-stasis-device-state=m
+CONFIG_PACKAGE_asterisk13-res-stasis-mailbox=m
+CONFIG_PACKAGE_asterisk13-res-stasis-playback=m
+CONFIG_PACKAGE_asterisk13-res-stasis-recording=m
+CONFIG_PACKAGE_asterisk13-res-stasis-snoop=m
+CONFIG_PACKAGE_asterisk13-res-statsd=m
 CONFIG_PACKAGE_asterisk13-res-stun-monitor=m
 CONFIG_PACKAGE_asterisk13-res-timing-dahdi=m
 CONFIG_PACKAGE_asterisk13-res-timing-pthread=m
 CONFIG_PACKAGE_asterisk13-res-timing-timerfd=m
 CONFIG_PACKAGE_asterisk13-res-xmpp=m
 CONFIG_PACKAGE_asterisk13-sounds=m
+CONFIG_PACKAGE_asterisk13-util-aelparse=m
+CONFIG_PACKAGE_asterisk13-util-astcanary=m
+CONFIG_PACKAGE_asterisk13-util-astdb2bdb=m
+CONFIG_PACKAGE_asterisk13-util-astdb2sqlite3=m
+CONFIG_PACKAGE_asterisk13-util-check_expr=m
+CONFIG_PACKAGE_asterisk13-util-check_expr2=m
+CONFIG_PACKAGE_asterisk13-util-conf2ael=m
+CONFIG_PACKAGE_asterisk13-util-muted=m
+CONFIG_PACKAGE_asterisk13-util-smsq=m
+CONFIG_PACKAGE_asterisk13-util-stereorize=m
+CONFIG_PACKAGE_asterisk13-util-streamplayer=m
 CONFIG_PACKAGE_asterisk13-voicemail=m
 CONFIG_PACKAGE_asterisk15=m
 
@@ -7418,33 +7409,71 @@ CONFIG_PACKAGE_asterisk15=m
 # Advanced configuration
 #
 # CONFIG_ASTERISK15_LOW_MEMORY is not set
+CONFIG_PACKAGE_asterisk15-app-adsiprog=m
+CONFIG_PACKAGE_asterisk15-app-agent-pool=m
 CONFIG_PACKAGE_asterisk15-app-alarmreceiver=m
+CONFIG_PACKAGE_asterisk15-app-amd=m
 CONFIG_PACKAGE_asterisk15-app-authenticate=m
+CONFIG_PACKAGE_asterisk15-app-bridgeaddchan=m
+CONFIG_PACKAGE_asterisk15-app-bridgewait=m
+CONFIG_PACKAGE_asterisk15-app-celgenuserevent=m
 CONFIG_PACKAGE_asterisk15-app-chanisavail=m
+CONFIG_PACKAGE_asterisk15-app-channelredirect=m
 CONFIG_PACKAGE_asterisk15-app-chanspy=m
 CONFIG_PACKAGE_asterisk15-app-confbridge=m
+CONFIG_PACKAGE_asterisk15-app-controlplayback=m
 CONFIG_PACKAGE_asterisk15-app-dahdiras=m
+CONFIG_PACKAGE_asterisk15-app-dictate=m
 CONFIG_PACKAGE_asterisk15-app-directed_pickup=m
+CONFIG_PACKAGE_asterisk15-app-directory=m
 CONFIG_PACKAGE_asterisk15-app-disa=m
+CONFIG_PACKAGE_asterisk15-app-dumpchan=m
 CONFIG_PACKAGE_asterisk15-app-exec=m
+CONFIG_PACKAGE_asterisk15-app-externalivr=m
+CONFIG_PACKAGE_asterisk15-app-festival=m
+CONFIG_PACKAGE_asterisk15-app-flash=m
+CONFIG_PACKAGE_asterisk15-app-followme=m
+CONFIG_PACKAGE_asterisk15-app-getcpeid=m
+CONFIG_PACKAGE_asterisk15-app-ices=m
+CONFIG_PACKAGE_asterisk15-app-image=m
+CONFIG_PACKAGE_asterisk15-app-ivrdemo=m
+CONFIG_PACKAGE_asterisk15-app-milliwatt=m
 CONFIG_PACKAGE_asterisk15-app-minivm=m
 CONFIG_PACKAGE_asterisk15-app-mixmonitor=m
+CONFIG_PACKAGE_asterisk15-app-morsecode=m
+CONFIG_PACKAGE_asterisk15-app-mp3=m
 CONFIG_PACKAGE_asterisk15-app-originate=m
+CONFIG_PACKAGE_asterisk15-app-page=m
 CONFIG_PACKAGE_asterisk15-app-playtones=m
+CONFIG_PACKAGE_asterisk15-app-privacy=m
 CONFIG_PACKAGE_asterisk15-app-queue=m
 CONFIG_PACKAGE_asterisk15-app-read=m
 CONFIG_PACKAGE_asterisk15-app-readexten=m
 CONFIG_PACKAGE_asterisk15-app-record=m
+CONFIG_PACKAGE_asterisk15-app-saycounted=m
 CONFIG_PACKAGE_asterisk15-app-sayunixtime=m
 CONFIG_PACKAGE_asterisk15-app-senddtmf=m
+CONFIG_PACKAGE_asterisk15-app-sendtext=m
+CONFIG_PACKAGE_asterisk15-app-skel=m
 CONFIG_PACKAGE_asterisk15-app-sms=m
+CONFIG_PACKAGE_asterisk15-app-softhangup=m
 CONFIG_PACKAGE_asterisk15-app-speech=m
 CONFIG_PACKAGE_asterisk15-app-stack=m
+CONFIG_PACKAGE_asterisk15-app-stasis=m
+CONFIG_PACKAGE_asterisk15-app-statsd=m
+CONFIG_PACKAGE_asterisk15-app-stream-echo=m
 CONFIG_PACKAGE_asterisk15-app-system=m
 CONFIG_PACKAGE_asterisk15-app-talkdetect=m
+CONFIG_PACKAGE_asterisk15-app-test=m
+CONFIG_PACKAGE_asterisk15-app-transfer=m
+CONFIG_PACKAGE_asterisk15-app-url=m
+CONFIG_PACKAGE_asterisk15-app-userevent=m
 CONFIG_PACKAGE_asterisk15-app-verbose=m
+CONFIG_PACKAGE_asterisk15-app-waitforring=m
+CONFIG_PACKAGE_asterisk15-app-waitforsilence=m
 CONFIG_PACKAGE_asterisk15-app-waituntil=m
 CONFIG_PACKAGE_asterisk15-app-while=m
+CONFIG_PACKAGE_asterisk15-app-zapateller=m
 CONFIG_PACKAGE_asterisk15-bridge-builtin-features=m
 CONFIG_PACKAGE_asterisk15-bridge-builtin-interval-features=m
 CONFIG_PACKAGE_asterisk15-bridge-holding=m
@@ -7454,12 +7483,22 @@ CONFIG_PACKAGE_asterisk15-bridge-softmix=m
 CONFIG_PACKAGE_asterisk15-cdr=m
 CONFIG_PACKAGE_asterisk15-cdr-csv=m
 CONFIG_PACKAGE_asterisk15-cdr-sqlite3=m
+CONFIG_PACKAGE_asterisk15-cel-custom=m
+CONFIG_PACKAGE_asterisk15-cel-manager=m
+CONFIG_PACKAGE_asterisk15-cel-sqlite3-custom=m
 CONFIG_PACKAGE_asterisk15-chan-alsa=m
+CONFIG_PACKAGE_asterisk15-chan-bridge-media=m
+CONFIG_PACKAGE_asterisk15-chan-console=m
 CONFIG_PACKAGE_asterisk15-chan-dahdi=m
 CONFIG_PACKAGE_asterisk15-chan-dongle=m
 CONFIG_PACKAGE_asterisk15-chan-iax2=m
+CONFIG_PACKAGE_asterisk15-chan-mgcp=m
+CONFIG_PACKAGE_asterisk15-chan-mobile=m
 CONFIG_PACKAGE_asterisk15-chan-motif=m
+CONFIG_PACKAGE_asterisk15-chan-ooh323=m
 CONFIG_PACKAGE_asterisk15-chan-oss=m
+CONFIG_PACKAGE_asterisk15-chan-phone=m
+CONFIG_PACKAGE_asterisk15-chan-rtp=m
 CONFIG_PACKAGE_asterisk15-chan-sip=m
 CONFIG_PACKAGE_asterisk15-chan-skinny=m
 CONFIG_PACKAGE_asterisk15-chan-unistim=m
@@ -7476,41 +7515,68 @@ CONFIG_PACKAGE_asterisk15-codec-lpc10=m
 CONFIG_PACKAGE_asterisk15-codec-resample=m
 CONFIG_PACKAGE_asterisk15-codec-ulaw=m
 CONFIG_PACKAGE_asterisk15-curl=m
+CONFIG_PACKAGE_asterisk15-format-g719=m
+CONFIG_PACKAGE_asterisk15-format-g723=m
 CONFIG_PACKAGE_asterisk15-format-g726=m
 CONFIG_PACKAGE_asterisk15-format-g729=m
 CONFIG_PACKAGE_asterisk15-format-gsm=m
 CONFIG_PACKAGE_asterisk15-format-h263=m
 CONFIG_PACKAGE_asterisk15-format-h264=m
 CONFIG_PACKAGE_asterisk15-format-ilbc=m
+CONFIG_PACKAGE_asterisk15-format-jpeg=m
+CONFIG_PACKAGE_asterisk15-format-ogg-vorbis=m
 CONFIG_PACKAGE_asterisk15-format-pcm=m
+CONFIG_PACKAGE_asterisk15-format-siren14=m
+CONFIG_PACKAGE_asterisk15-format-siren7=m
 CONFIG_PACKAGE_asterisk15-format-sln=m
 CONFIG_PACKAGE_asterisk15-format-vox=m
 CONFIG_PACKAGE_asterisk15-format-wav=m
 CONFIG_PACKAGE_asterisk15-format-wav-gsm=m
+CONFIG_PACKAGE_asterisk15-func-aes=m
 CONFIG_PACKAGE_asterisk15-func-base64=m
 CONFIG_PACKAGE_asterisk15-func-blacklist=m
+CONFIG_PACKAGE_asterisk15-func-callcompletion=m
 CONFIG_PACKAGE_asterisk15-func-channel=m
+CONFIG_PACKAGE_asterisk15-func-config=m
 CONFIG_PACKAGE_asterisk15-func-cut=m
 CONFIG_PACKAGE_asterisk15-func-db=m
 CONFIG_PACKAGE_asterisk15-func-devstate=m
+CONFIG_PACKAGE_asterisk15-func-dialgroup=m
+CONFIG_PACKAGE_asterisk15-func-dialplan=m
 CONFIG_PACKAGE_asterisk15-func-enum=m
 CONFIG_PACKAGE_asterisk15-func-env=m
 CONFIG_PACKAGE_asterisk15-func-extstate=m
+CONFIG_PACKAGE_asterisk15-func-frame-trace=m
 CONFIG_PACKAGE_asterisk15-func-global=m
 CONFIG_PACKAGE_asterisk15-func-groupcount=m
+CONFIG_PACKAGE_asterisk15-func-hangupcause=m
+CONFIG_PACKAGE_asterisk15-func-holdintercept=m
 CONFIG_PACKAGE_asterisk15-func-iconv=m
+CONFIG_PACKAGE_asterisk15-func-jitterbuffer=m
+CONFIG_PACKAGE_asterisk15-func-lock=m
 CONFIG_PACKAGE_asterisk15-func-math=m
+CONFIG_PACKAGE_asterisk15-func-md5=m
 CONFIG_PACKAGE_asterisk15-func-module=m
 CONFIG_PACKAGE_asterisk15-func-periodic-hook=m
+CONFIG_PACKAGE_asterisk15-func-pitchshift=m
 CONFIG_PACKAGE_asterisk15-func-presencestate=m
 CONFIG_PACKAGE_asterisk15-func-rand=m
 CONFIG_PACKAGE_asterisk15-func-realtime=m
+CONFIG_PACKAGE_asterisk15-func-sha1=m
 CONFIG_PACKAGE_asterisk15-func-shell=m
+CONFIG_PACKAGE_asterisk15-func-sorcery=m
+CONFIG_PACKAGE_asterisk15-func-sprintf=m
+CONFIG_PACKAGE_asterisk15-func-srv=m
+CONFIG_PACKAGE_asterisk15-func-sysinfo=m
+CONFIG_PACKAGE_asterisk15-func-talkdetect=m
 CONFIG_PACKAGE_asterisk15-func-uri=m
+CONFIG_PACKAGE_asterisk15-func-version=m
 CONFIG_PACKAGE_asterisk15-func-vmcount=m
+CONFIG_PACKAGE_asterisk15-func-volume=m
 CONFIG_PACKAGE_asterisk15-odbc=m
 CONFIG_PACKAGE_asterisk15-pbx-ael=m
 CONFIG_PACKAGE_asterisk15-pbx-dundi=m
+CONFIG_PACKAGE_asterisk15-pbx-loopback=m
 CONFIG_PACKAGE_asterisk15-pbx-lua=m
 CONFIG_PACKAGE_asterisk15-pbx-realtime=m
 CONFIG_PACKAGE_asterisk15-pbx-spool=m
@@ -7519,37 +7585,99 @@ CONFIG_PACKAGE_asterisk15-pjsip=m
 CONFIG_PACKAGE_asterisk15-res-adsi=m
 CONFIG_PACKAGE_asterisk15-res-ael-share=m
 CONFIG_PACKAGE_asterisk15-res-agi=m
+CONFIG_PACKAGE_asterisk15-res-ari=m
+CONFIG_PACKAGE_asterisk15-res-ari-applications=m
+CONFIG_PACKAGE_asterisk15-res-ari-asterisk=m
+CONFIG_PACKAGE_asterisk15-res-ari-bridges=m
+CONFIG_PACKAGE_asterisk15-res-ari-channels=m
+CONFIG_PACKAGE_asterisk15-res-ari-device-states=m
+CONFIG_PACKAGE_asterisk15-res-ari-endpoints=m
+CONFIG_PACKAGE_asterisk15-res-ari-events=m
+CONFIG_PACKAGE_asterisk15-res-ari-mailboxes=m
+CONFIG_PACKAGE_asterisk15-res-ari-model=m
+CONFIG_PACKAGE_asterisk15-res-ari-playbacks=m
+CONFIG_PACKAGE_asterisk15-res-ari-recordings=m
+CONFIG_PACKAGE_asterisk15-res-ari-sounds=m
 CONFIG_PACKAGE_asterisk15-res-calendar=m
 CONFIG_PACKAGE_asterisk15-res-calendar-caldav=m
 CONFIG_PACKAGE_asterisk15-res-calendar-ews=m
 CONFIG_PACKAGE_asterisk15-res-calendar-exchange=m
 CONFIG_PACKAGE_asterisk15-res-calendar-icalendar=m
+CONFIG_PACKAGE_asterisk15-res-chan-stats=m
+CONFIG_PACKAGE_asterisk15-res-clialiases=m
 CONFIG_PACKAGE_asterisk15-res-clioriginate=m
+CONFIG_PACKAGE_asterisk15-res-config-ldap=m
+CONFIG_PACKAGE_asterisk15-res-config-mysql=m
+CONFIG_PACKAGE_asterisk15-res-config-sqlite3=m
+CONFIG_PACKAGE_asterisk15-res-convert=m
+CONFIG_PACKAGE_asterisk15-res-endpoint-stats=m
 CONFIG_PACKAGE_asterisk15-res-fax=m
 CONFIG_PACKAGE_asterisk15-res-fax-spandsp=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-celt=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-g729=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-h263=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-h264=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-ilbc=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-opus=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-silk=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-siren14=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-siren7=m
+CONFIG_PACKAGE_asterisk15-res-format-attr-vp8=m
 CONFIG_PACKAGE_asterisk15-res-hep=m
 CONFIG_PACKAGE_asterisk15-res-hep-pjsip=m
 CONFIG_PACKAGE_asterisk15-res-hep-rtcp=m
+CONFIG_PACKAGE_asterisk15-res-http-media-cache=m
 CONFIG_PACKAGE_asterisk15-res-http-websocket=m
+CONFIG_PACKAGE_asterisk15-res-limit=m
+CONFIG_PACKAGE_asterisk15-res-manager-devicestate=m
+CONFIG_PACKAGE_asterisk15-res-manager-presencestate=m
 CONFIG_PACKAGE_asterisk15-res-monitor=m
 CONFIG_PACKAGE_asterisk15-res-musiconhold=m
+CONFIG_PACKAGE_asterisk15-res-mutestream=m
+CONFIG_PACKAGE_asterisk15-res-mwi-external=m
+CONFIG_PACKAGE_asterisk15-res-mwi-external-ami=m
 CONFIG_PACKAGE_asterisk15-res-parking=m
 CONFIG_PACKAGE_asterisk15-res-phoneprov=m
 CONFIG_PACKAGE_asterisk15-res-pjproject=m
 CONFIG_PACKAGE_asterisk15-res-pjsip-phoneprov=m
+CONFIG_PACKAGE_asterisk15-res-pktccops=m
 CONFIG_PACKAGE_asterisk15-res-realtime=m
+CONFIG_PACKAGE_asterisk15-res-resolver-unbound=m
 CONFIG_PACKAGE_asterisk15-res-rtp-asterisk=m
 CONFIG_PACKAGE_asterisk15-res-rtp-multicast=m
+CONFIG_PACKAGE_asterisk15-res-sdp-translator-pjmedia=m
+CONFIG_PACKAGE_asterisk15-res-security-log=m
 CONFIG_PACKAGE_asterisk15-res-smdi=m
+CONFIG_PACKAGE_asterisk15-res-snmp=m
 CONFIG_PACKAGE_asterisk15-res-sorcery=m
+CONFIG_PACKAGE_asterisk15-res-sorcery-memory-cache=m
 CONFIG_PACKAGE_asterisk15-res-speech=m
 CONFIG_PACKAGE_asterisk15-res-srtp=m
+CONFIG_PACKAGE_asterisk15-res-stasis=m
+CONFIG_PACKAGE_asterisk15-res-stasis-answer=m
+CONFIG_PACKAGE_asterisk15-res-stasis-device-state=m
+CONFIG_PACKAGE_asterisk15-res-stasis-mailbox=m
+CONFIG_PACKAGE_asterisk15-res-stasis-playback=m
+CONFIG_PACKAGE_asterisk15-res-stasis-recording=m
+CONFIG_PACKAGE_asterisk15-res-stasis-snoop=m
+CONFIG_PACKAGE_asterisk15-res-statsd=m
 CONFIG_PACKAGE_asterisk15-res-stun-monitor=m
 CONFIG_PACKAGE_asterisk15-res-timing-dahdi=m
 CONFIG_PACKAGE_asterisk15-res-timing-pthread=m
 CONFIG_PACKAGE_asterisk15-res-timing-timerfd=m
 CONFIG_PACKAGE_asterisk15-res-xmpp=m
 CONFIG_PACKAGE_asterisk15-sounds=m
+CONFIG_PACKAGE_asterisk15-util-aelparse=m
+CONFIG_PACKAGE_asterisk15-util-astcanary=m
+CONFIG_PACKAGE_asterisk15-util-astdb2bdb=m
+CONFIG_PACKAGE_asterisk15-util-astdb2sqlite3=m
+CONFIG_PACKAGE_asterisk15-util-check_expr=m
+CONFIG_PACKAGE_asterisk15-util-check_expr2=m
+CONFIG_PACKAGE_asterisk15-util-conf2ael=m
+CONFIG_PACKAGE_asterisk15-util-muted=m
+CONFIG_PACKAGE_asterisk15-util-smsq=m
+CONFIG_PACKAGE_asterisk15-util-stereorize=m
+CONFIG_PACKAGE_asterisk15-util-streamplayer=m
 CONFIG_PACKAGE_asterisk15-voicemail=m
 CONFIG_PACKAGE_baresip=m
 CONFIG_PACKAGE_baresip-mod-alsa=m
@@ -8758,15 +8886,15 @@ CONFIG_PACKAGE_nut-upsrw=m
 CONFIG_PACKAGE_nut-upssched=m
 CONFIG_PACKAGE_nut-web-cgi=m
 CONFIG_PACKAGE_obfsproxy=m
-CONFIG_PACKAGE_odhcp6c=y
+CONFIG_PACKAGE_odhcp6c=m
 CONFIG_PACKAGE_odhcp6c_ext_cer_id=0
 CONFIG_PACKAGE_odhcpd=y
 
 #
 # Configuration
 #
-CONFIG_PACKAGE_odhcpd_ext_cer_id=0
-# CONFIG_PACKAGE_odhcpd_dhcpv4_support is not set
+CONFIG_PACKAGE_odhcpd_full_ext_cer_id=0
+# CONFIG_PACKAGE_odhcpd-ipv6only is not set
 CONFIG_PACKAGE_ola=m
 CONFIG_PACKAGE_omcproxy=m
 CONFIG_PACKAGE_openldap-server=m
