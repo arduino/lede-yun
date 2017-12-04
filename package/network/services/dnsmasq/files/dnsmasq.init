@@ -13,7 +13,6 @@ ADD_LOCAL_FQDN=""
 
 BASECONFIGFILE="/var/etc/dnsmasq.conf"
 BASEHOSTFILE="/tmp/hosts/dhcp"
-BASETIMESTAMPFILE="/etc/dnsmasq.time"
 TRUSTANCHORSFILE="/usr/share/dnsmasq/trust-anchors.conf"
 TIMEVALIDFILE="/var/state/dnsmasqsec"
 BASEDHCPSTAMPFILE="/var/run/dnsmasq"
@@ -277,7 +276,7 @@ dhcp_match_add() {
 
 dhcp_host_add() {
 	local cfg="$1"
-	local hosttag nametime addrs duids
+	local hosttag nametime addrs duids macs tags
 
 	config_get_bool force "$cfg" force 0
 
@@ -305,7 +304,6 @@ dhcp_host_add() {
 	if [ -n "$mac" ]; then
 		# --dhcp-host=00:20:e0:3b:13:af,192.168.0.199,lap
 		# many MAC are possible to track a laptop ON/OFF dock
-		macs=""
 		for m in $mac; do append macs "$m" ","; done
 	fi
 
@@ -326,7 +324,6 @@ dhcp_host_add() {
 		hex_to_hostid hostid "$hostid"
 	fi
 
-	tags=""
 	if [ -n "$tag" ]; then
 		for t in $tag; do append tags "$t" ",set:"; done
 	fi
@@ -744,7 +741,6 @@ dnsmasq_start()
 	CONFIGFILE="${BASECONFIGFILE}.${cfg}"
 	CONFIGFILE_TMP="${CONFIGFILE}.$$"
 	HOSTFILE="${BASEHOSTFILE}.${cfg}"
-	TIMESTAMPFILE="${BASETIMESTAMPFILE}.${cfg}"
 	BASEDHCPSTAMPFILE_CFG="${BASEDHCPSTAMPFILE}.${cfg}"
 
 	# before we can call xappend
@@ -753,8 +749,6 @@ dnsmasq_start()
 	mkdir -p $(dirname $HOSTFILE)
 	mkdir -p /var/lib/misc
 	chown dnsmasq:dnsmasq /var/run/dnsmasq
-
-	[ -f "$TIMESTAMPFILE" ] && rm -f "$TIMESTAMPFILE"
 
 	echo "# auto-generated config file from /etc/config/dhcp" > $CONFIGFILE_TMP
 	echo "# auto-generated config file from /etc/config/dhcp" > $HOSTFILE
