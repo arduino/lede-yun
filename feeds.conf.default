@@ -6,8 +6,3 @@ src-git arduino https://github.com/arduino/openwrt-arduino-packages.git;for-lede
 src-git custom https://github.com/RedSnake64/openwrt-custom-packages.git;for-15.05
 src-git owrt_pub_feeds git://github.com/remakeelectric/owrt_pub_feeds.git
 src-git juci https://github.com/mkschreder/juci-openwrt-feed.git
-#src-git video https://github.com/openwrt/video.git
-#src-git targets https://github.com/openwrt/targets.git
-#src-git management https://github.com/openwrt-management/packages.git
-#src-git oldpackages http://git.openwrt.org/packages.git
-#src-link custom /usr/src/openwrt/custom-feed

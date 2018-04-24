@@ -151,6 +151,8 @@ hostapd_common_add_bss_config() {
 		wpa_group_rekey wpa_pair_rekey wpa_master_rekey
 	config_add_boolean wpa_disable_eapol_key_retries
 
+	config_add_boolean tdls_prohibit
+
 	config_add_boolean rsn_preauth auth_cache
 	config_add_int ieee80211w
 	config_add_int eapol_version
@@ -170,8 +172,10 @@ hostapd_common_add_bss_config() {
 
 	config_add_string nasid
 	config_add_string ownip
+	config_add_string radius_client_addr
 	config_add_string iapp_interface
 	config_add_string eap_type ca_cert client_cert identity anonymous_identity auth priv_key priv_key_pwd
+	config_add_string ieee80211w_mgmt_cipher
 
 	config_add_int dynamic_vlan vlan_naming
 	config_add_string vlan_tagged_interface vlan_bridge
@@ -184,6 +188,10 @@ hostapd_common_add_bss_config() {
 	config_add_boolean wps_pushbutton wps_label ext_registrar wps_pbc_in_m1
 	config_add_int wps_ap_setup_locked wps_independent
 	config_add_string wps_device_type wps_device_name wps_manufacturer wps_pin
+
+	config_add_boolean ieee80211v wnm_sleep_mode bss_transition
+	config_add_int time_advertisement
+	config_add_string time_zone
 
 	config_add_boolean ieee80211r pmk_r1_push ft_psk_generate_local ft_over_ds
 	config_add_int r0_key_lifetime reassociation_deadline
@@ -215,7 +223,7 @@ hostapd_set_bss_options() {
 
 	json_get_vars \
 		wep_rekey wpa_group_rekey wpa_pair_rekey wpa_master_rekey \
-		wpa_disable_eapol_key_retries \
+		wpa_disable_eapol_key_retries tdls_prohibit \
 		maxassoc max_inactivity disassoc_low_ack isolate auth_cache \
 		wps_pushbutton wps_label ext_registrar wps_pbc_in_m1 wps_ap_setup_locked \
 		wps_independent wps_device_type wps_device_name wps_manufacturer wps_pin \
@@ -232,6 +240,7 @@ hostapd_set_bss_options() {
 	set_default wmm 1
 	set_default uapsd 1
 	set_default wpa_disable_eapol_key_retries 0
+	set_default tdls_prohibit 0
 	set_default eapol_version 0
 	set_default acct_port 1813
 
@@ -251,6 +260,8 @@ hostapd_set_bss_options() {
 	append bss_conf "wmm_enabled=$wmm" "$N"
 	append bss_conf "ignore_broadcast_ssid=$hidden" "$N"
 	append bss_conf "uapsd_advertisement_enabled=$uapsd" "$N"
+
+	[ "$tdls_prohibit" -gt 0 ] && append bss_conf "tdls_prohibit=$tdls_prohibit" "$N"
 
 	[ "$wpa" -gt 0 ] && {
 		[ -n "$wpa_group_rekey"  ] && append bss_conf "wpa_group_rekey=$wpa_group_rekey" "$N"
@@ -299,7 +310,7 @@ hostapd_set_bss_options() {
 			json_get_vars \
 				auth_server auth_secret auth_port \
 				dae_client dae_secret dae_port \
-				ownip \
+				ownip radius_client_addr \
 				eap_reauth_period
 
 			# radius can provide VLAN ID for clients
@@ -326,6 +337,7 @@ hostapd_set_bss_options() {
 			}
 
 			[ -n "$ownip" ] && append bss_conf "own_ip_addr=$ownip" "$N"
+			[ -n "$radius_client_addr" ] && append bss_conf "radius_client_addr=$radius_client_addr" "$N"
 			append bss_conf "eapol_key_index_workaround=1" "$N"
 			append bss_conf "ieee8021x=1" "$N"
 
@@ -356,8 +368,8 @@ hostapd_set_bss_options() {
 	[ -n "$wps_possible" -a -n "$config_methods" ] && {
 		set_default ext_registrar 0
 		set_default wps_device_type "6-0050F204-1"
-		set_default wps_device_name "Lede AP"
-		set_default wps_manufacturer "www.lede-project.org"
+		set_default wps_device_name "OpenWrt AP"
+		set_default wps_manufacturer "www.openwrt.org"
 		set_default wps_independent 1
 
 		wps_state=2
@@ -384,6 +396,21 @@ hostapd_set_bss_options() {
 		network_get_device ifname "$iapp_interface" || ifname="$iapp_interface"
 		append bss_conf "iapp_interface=$ifname" "$N"
 	}
+
+	json_get_vars ieee80211v
+	set_default ieee80211v 0
+	if [ "$ieee80211v" -eq "1" ]; then
+		json_get_vars time_advertisement time_zone wnm_sleep_mode bss_transition
+
+		set_default time_advertisement 0
+		set_default wnm_sleep_mode 0
+		set_default bss_transition 0
+
+		append bss_conf "time_advertisement=$time_advertisement" "$N"
+		[ -n "$time_zone" ] && append bss_conf "time_zone=$time_zone" "$N"
+		append bss_conf "wnm_sleep_mode=$wnm_sleep_mode" "$N"
+		append bss_conf "bss_transition=$bss_transition" "$N"
+	fi
 
 	if [ "$wpa" -ge "1" ]; then
 		json_get_vars ieee80211r
@@ -439,9 +466,10 @@ hostapd_set_bss_options() {
 		# RSN -> allow management frame protection
 		case "$ieee80211w" in
 			[012])
-				json_get_vars ieee80211w_max_timeout ieee80211w_retry_timeout
+				json_get_vars ieee80211w_mgmt_cipher ieee80211w_max_timeout ieee80211w_retry_timeout
 				append bss_conf "ieee80211w=$ieee80211w" "$N"
 				[ "$ieee80211w" -gt "0" ] && {
+					append bss_conf "group_mgmt_cipher=${ieee80211w_mgmt_cipher:-AES-128-CMAC}" "$N"
 					[ -n "$ieee80211w_max_timeout" ] && \
 						append bss_conf "assoc_sa_query_max_timeout=$ieee80211w_max_timeout" "$N"
 					[ -n "$ieee80211w_retry_timeout" ] && \
@@ -619,6 +647,7 @@ wpa_supplicant_add_network() {
 	local ifname="$1"
 	local freq="$2"
 	local htmode="$3"
+	local noscan="$4"
 
 	_wpa_supplicant_common "$1"
 	wireless_vif_parse_encryption
@@ -648,11 +677,13 @@ wpa_supplicant_add_network() {
 	}
 
 	[[ "$_w_mode" = "mesh" ]] && {
-		json_get_vars mesh_id
+		json_get_vars mesh_id mesh_fwding
 		ssid="${mesh_id}"
 
 		append network_data "mode=5" "$N$T"
+		[ -n "$mesh_fwding" ] && append network_data "mesh_fwding=${mesh_fwding}" "$N$T"
 		[ -n "$channel" ] && wpa_supplicant_set_fixed_freq "$freq" "$htmode"
+		[ "$noscan" = "1" ] && append network_data "noscan=1" "$N$T"
 		append wpa_key_mgmt "SAE"
 		scan_ssid=""
 	}
@@ -678,7 +709,11 @@ wpa_supplicant_add_network() {
 			if [ ${#key} -eq 64 ]; then
 				passphrase="psk=${key}"
 			else
-				passphrase="psk=\"${key}\""
+				if [ "$_w_mode" = "mesh" ]; then
+					passphrase="sae_password=\"${key}\""
+				else
+					passphrase="psk=\"${key}\""
+				fi
 			fi
 			append network_data "$passphrase" "$N$T"
 		;;

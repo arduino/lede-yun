@@ -7,7 +7,7 @@ define Build/uImage
 	mkimage -A $(LINUX_KARCH) \
 		-O linux -T kernel \
 		-C $(1) -a $(KERNEL_LOADADDR) -e $(if $(KERNEL_ENTRY),$(KERNEL_ENTRY),$(KERNEL_LOADADDR)) \
-		-n '$(if $(UIMAGE_NAME),$(UIMAGE_NAME),$(call toupper,$(LINUX_KARCH)) LEDE Linux-$(LINUX_VERSION))' -d $@ $@.new
+		-n '$(if $(UIMAGE_NAME),$(UIMAGE_NAME),$(call toupper,$(LINUX_KARCH)) $(VERSION_DIST) Linux-$(LINUX_VERSION))' -d $@ $@.new
 	mv $@.new $@
 endef
 
@@ -60,7 +60,7 @@ endef
 
 define Build/netgear-dni
 	$(STAGING_DIR_HOST)/bin/mkdniimg \
-		-B $(NETGEAR_BOARD_ID) -v LEDE.$(REVISION) \
+		-B $(NETGEAR_BOARD_ID) -v $(VERSION_DIST).$(REVISION) \
 		$(if $(NETGEAR_HW_ID),-H $(NETGEAR_HW_ID)) \
 		-r "$(1)" \
 		-i $@ -o $@.new
@@ -77,16 +77,17 @@ define Build/append-squashfs-fakeroot-be
 	cat $@.fakesquashfs >> $@
 endef
 
-# append a fake/empty rootfs uImage header, to fool the bootloaders
-# rootfs integrity check
-define Build/append-uImage-fakeroot-hdr
-	rm -f $@.fakeroot
+# append a fake/empty uImage header, to fool bootloaders rootfs integrity check
+# for example
+define Build/append-uImage-fakehdr
+	touch $@.fakehdr
 	$(STAGING_DIR_HOST)/bin/mkimage \
-		-A $(LINUX_KARCH) -O linux -T filesystem -C none \
-		-n '$(call toupper,$(LINUX_KARCH)) LEDE fakeroot' \
+		-A $(LINUX_KARCH) -O linux -T $(1) -C none \
+		-n '$(VERSION_DIST) fake $(1)' \
+		-d $@.fakehdr \
 		-s \
-		$@.fakeroot
-	cat $@.fakeroot >> $@
+		$@.fakehdr
+	cat $@.fakehdr >> $@
 endef
 
 define Build/tplink-safeloader
@@ -113,16 +114,12 @@ define Build/install-dtb
 	)
 endef
 
-define Build/install-zImage
-    $(CP) $(KDIR)/zImage \
-      $(BIN_DIR)/$(IMG_PREFIX)-$(PROFILE_SANITIZED)-zImage
-endef
-
 define Build/fit
 	$(TOPDIR)/scripts/mkits.sh \
 		-D $(DEVICE_NAME) -o $@.its -k $@ \
 		$(if $(word 2,$(1)),-d $(word 2,$(1))) -C $(word 1,$(1)) \
 		-a $(KERNEL_LOADADDR) -e $(if $(KERNEL_ENTRY),$(KERNEL_ENTRY),$(KERNEL_LOADADDR)) \
+		-c $(if $(DEVICE_DTS_CONFIG),$(DEVICE_DTS_CONFIG),"config@1") \
 		-A $(LINUX_KARCH) -v $(LINUX_VERSION)
 	PATH=$(LINUX_DIR)/scripts/dtc:$(PATH) mkimage -f $@.its $@.new
 	@mv $@.new $@
@@ -138,7 +135,7 @@ define Build/lzma-no-dict
 endef
 
 define Build/gzip
-	gzip -9n -c $@ $(1) > $@.new
+	gzip --force -9n -c $@ $(1) > $@.new
 	@mv $@.new $@
 endef
 
@@ -229,6 +226,19 @@ define Build/combined-image
 	@mv $@.new $@
 endef
 
+define Build/openmesh-image
+	$(TOPDIR)/scripts/om-fwupgradecfg-gen.sh \
+		"$(call param_get_default,ce_type,$(1),$(DEVICE_NAME))" \
+		"$@-fwupgrade.cfg" \
+		"$(call param_get_default,kernel,$(1),$(IMAGE_KERNEL))" \
+		"$(call param_get_default,rootfs,$(1),$@)"
+	$(TOPDIR)/scripts/combined-ext-image.sh \
+		"$(call param_get_default,ce_type,$(1),$(DEVICE_NAME))" "$@" \
+		"$@-fwupgrade.cfg" "fwupgrade.cfg" \
+		"$(call param_get_default,kernel,$(1),$(IMAGE_KERNEL))" "kernel" \
+		"$(call param_get_default,rootfs,$(1),$@)" "rootfs"
+endef
+
 define Build/sysupgrade-tar
 	sh $(TOPDIR)/scripts/sysupgrade-tar.sh \
 		--board $(if $(BOARD_NAME),$(BOARD_NAME),$(DEVICE_NAME)) \
@@ -281,7 +291,7 @@ metadata_json = \
 	}'
 
 define Build/append-metadata
-	$(if $(SUPPORTED_DEVICES),echo $(call metadata_json,$(SUPPORTED_DEVICES)) | fwtool -I - $@)
+	$(if $(SUPPORTED_DEVICES),-echo $(call metadata_json,$(SUPPORTED_DEVICES)) | fwtool -I - $@)
 endef
 
 define Build/kernel2minor

@@ -18,7 +18,7 @@ $(eval $(call TestHostCommand,working-make, \
 	$(MAKE) -v | grep -E 'Make (3\.8[1-9]|3\.9[0-9]|[4-9]\.)'))
 
 $(eval $(call TestHostCommand,case-sensitive-fs, \
-	LEDE can only be built on a case-sensitive filesystem, \
+	OpenWrt can only be built on a case-sensitive filesystem, \
 	rm -f $(TMP_DIR)/test.*; touch $(TMP_DIR)/test.fs; \
 		test ! -f $(TMP_DIR)/test.FS))
 
@@ -28,13 +28,15 @@ $(eval $(call TestHostCommand,proper-umask, \
 
 $(eval $(call SetupHostCommand,gcc, \
 	Please install the GNU C Compiler (gcc) 4.8 or later \
-	$(CC) -dumpversion | grep -E '(4\.[8-9]|5\.?[0-9]?|6\.?[0-9]?|7\.?[0-9]?)', \
-	gcc -dumpversion | grep -E '(4\.[8-9]|5\.?[0-9]?|6\.?[0-9]?|7\.?[0-9]?)', \
+	$(CC) -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?)', \
+	gcc -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?)', \
 	gcc48 --version | grep gcc, \
 	gcc49 --version | grep gcc, \
 	gcc5 --version | grep gcc, \
 	gcc6 --version | grep gcc, \
 	gcc7 --version | grep gcc, \
+	gcc8 --version | grep gcc, \
+	gcc9 --version | grep gcc, \
 	gcc --version | grep Apple.LLVM ))
 
 $(eval $(call TestHostCommand,working-gcc, \
@@ -45,13 +47,15 @@ $(eval $(call TestHostCommand,working-gcc, \
 
 $(eval $(call SetupHostCommand,g++, \
 	Please install the GNU C++ Compiler (g++) 4.8 or later \
-	$(CXX) -dumpversion | grep -E '(4\.[8-9]|5\.?[0-9]?|6\.?[0-9]?|7\.?[0-9]?)', \
-	g++ -dumpversion | grep -E '(4\.[8-9]|5\.?[0-9]?|6\.?[0-9]?|7\.?[0-9]?)', \
+	$(CXX) -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?)', \
+	g++ -dumpversion | grep -E '^(4\.[8-9]|[5-9]\.?)', \
 	g++48 --version | grep g++, \
 	g++49 --version | grep g++, \
 	g++5 --version | grep g++, \
 	g++6 --version | grep g++, \
 	g++7 --version | grep g++, \
+	g++8 --version | grep g++, \
+	g++9 --version | grep g++, \
 	g++ --version | grep Apple.LLVM ))
 
 $(eval $(call TestHostCommand,working-g++, \

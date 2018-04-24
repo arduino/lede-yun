@@ -52,7 +52,7 @@ else
   LINUX_VERMAGIC:=$(strip $(shell cat $(LINUX_DIR)/.vermagic 2>/dev/null))
   LINUX_VERMAGIC:=$(if $(LINUX_VERMAGIC),$(LINUX_VERMAGIC),unknown)
 
-  LINUX_UNAME_VERSION:=$(if $(word 3,$(subst ., ,$(KERNEL_BASE))),$(KERNEL_BASE),$(KERNEL_BASE).0)
+  LINUX_UNAME_VERSION:=$(KERNEL_BASE)
   ifneq ($(findstring -rc,$(LINUX_VERSION)),)
     LINUX_UNAME_VERSION:=$(LINUX_UNAME_VERSION)-$(strip $(lastword $(subst -, ,$(LINUX_VERSION))))
   endif
@@ -225,8 +225,7 @@ $(call KernelPackage/$(1)/config)
   $(call KernelPackage/hooks)
 
   ifneq ($(if $(filter-out %=y %=n %=m,$(KCONFIG)),$(filter m y,$(foreach c,$(filter-out %=y %=n %=m,$(KCONFIG)),$($(c)))),.),)
-    ifneq ($(strip $(FILES)),)
-      define Package/kmod-$(1)/install
+    define Package/kmod-$(1)/install
 		  @for mod in $$(call version_filter,$$(FILES)); do \
 			if grep -q "$$$$$$$${mod##$(LINUX_DIR)/}" "$(LINUX_DIR)/modules.builtin"; then \
 				echo "NOTICE: module '$$$$$$$$mod' is built-in."; \
@@ -240,8 +239,7 @@ $(call KernelPackage/$(1)/config)
 		  done;
 		  $(call ModuleAutoLoad,$(1),$$(1),$(filter-out 0-,$(word 1,$(AUTOLOAD))-),$(filter-out 0,$(word 2,$(AUTOLOAD))),$(wordlist 3,99,$(AUTOLOAD)))
 		  $(call KernelPackage/$(1)/install,$$(1))
-      endef
-    endif
+    endef
   $(if $(CONFIG_PACKAGE_kmod-$(1)),
     else
       compile: $(1)-disabled

@@ -182,7 +182,9 @@
 					spi-max-frequency = <51200000>;
 					reg = <0>;
 
-					linux,part-probe = "qcom-smem";
+					partitions {
+						compatible = "qcom,smem";
+					};
 				};
 			};
 		};
@@ -229,6 +231,7 @@
 			reset-gpio = <&qcom_pinmux 48 GPIO_ACTIVE_LOW>;
 			pinctrl-0 = <&pcie1_pins>;
 			pinctrl-names = "default";
+			force_gen1 = <1>;
 		};
 
 		mdio0: mdio {
